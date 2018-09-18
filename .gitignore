@@ -2,4 +2,5 @@
 /phpunit.xml
 /vendor/
 /tests/tmp/*
+/build/
 /.php_cs.cache

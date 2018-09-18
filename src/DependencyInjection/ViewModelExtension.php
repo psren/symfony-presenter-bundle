@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace Psren\ViewModelBundle\DependencyInjection;
 
-
 use Psren\ViewModelBundle\ViewModel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,7 +18,8 @@ final class ViewModelExtension extends Extension
     {
         $container
             ->registerForAutoconfiguration(ViewModel::class)
-            ->addTag('psren.view_model');
+            ->addTag('psren.view_model')
+            ->setPublic(true);
         
         $loader = new XmlFileLoader(
             $container,
@@ -27,5 +27,4 @@ final class ViewModelExtension extends Extension
         );
         $loader->load('services.xml');
     }
-
 }

@@ -4,13 +4,17 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="psren.view_model.view_extension">.html.twig</parameter>
+        <parameter key="psren.view_model.name.remove_regex">(App\\ViewModel|ViewModel)</parameter>
+    </parameters>
+    
     <services>
-        <service id="Psren\ViewModelBundle\ViewModelFactory">
-            <argument type="tagged" tag="psren.view_model" />
-        </service>
-        <service id="Psren\ViewModelBundle\EventListener\TransformPresentationToResponse">
-            <argument type="service" id="service_container" />
-            <tag name="kernel.event_listener" event="kernel.view" />
+        <service id="psren.view_model.name_converter" class="Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter" />
+        <service id="psren.view_model.template_chooser" class="Psren\ViewModelBundle\Templating\NameByClassName" public="true">
+            <argument type="service" id="psren.view_model.name_converter" />
+            <argument type="string">%psren.view_model.view_extension%</argument>
+            <argument type="string">%psren.view_model.name.remove_regex%</argument>
         </service>
     </services>
 </container>
