@@ -1,4 +1,4 @@
-# Symfony Presenter-Bundle
+# Symfony ViewModel-Bundle
 
 [![Build Status](https://travis-ci.org/psren/symfony-viewmodel-bundle.svg?branch=master)](https://travis-ci.org/psren/symfony-viewmodel-bundle)
 --
