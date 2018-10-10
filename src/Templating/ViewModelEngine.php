@@ -41,15 +41,18 @@ final class ViewModelEngine implements EngineInterface, StreamingEngineInterface
         NameGuesser $nameGuesser,
         EngineInterface $engine,
         StreamingEngineInterface $streamingEngine
-    )
-    {
+    ) {
+    
         $this->container = $container;
         $this->nameGuesser = $nameGuesser;
         $this->engine = $engine;
         $this->streamingEngine = $streamingEngine;
     }
 
-    public function render($name, array $parameters = array())
+    /**
+     * @inheritdoc
+     */
+    public function render($name, array $parameters = array()) : string
     {
         $viewModel = $this->container->get($name);
         $view = $this->nameGuesser->extractName($viewModel);
@@ -58,6 +61,9 @@ final class ViewModelEngine implements EngineInterface, StreamingEngineInterface
         return $this->engine->render($view, $parameters);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function stream($name, array $parameters = array())
     {
         $viewModel = $this->container->get($name);
@@ -67,11 +73,17 @@ final class ViewModelEngine implements EngineInterface, StreamingEngineInterface
         return $this->streamingEngine->stream($view, $parameters);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function exists($name) : bool
     {
         return $this->supports($name);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function supports($name) : bool
     {
         try {
@@ -87,5 +99,4 @@ final class ViewModelEngine implements EngineInterface, StreamingEngineInterface
     {
         return array_merge($viewModel->getData(), $parameters);
     }
-
 }
