@@ -16,6 +16,16 @@ In your `bundles.php` add
 Psren\ViewModelBundle\ViewModelBundle::class => ['all' => true],
 ```
 
+Then add it to your Templating-Configuration:
+
+```yml
+# config/packages/framework.yml
+
+#...
+templating: {engines: [twig, psren.view_model]}
+#...
+```
+
 ## Usage
 
 ### Build your ViewModel

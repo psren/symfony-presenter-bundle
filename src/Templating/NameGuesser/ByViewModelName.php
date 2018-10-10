@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 
-namespace Psren\ViewModelBundle\Templating;
+namespace Psren\ViewModelBundle\Templating\NameGuesser;
 
+use Psren\ViewModelBundle\Templating\NameGuesser\NameGuesser;
 use Psren\ViewModelBundle\ViewModel;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-final class NameByClassName implements TemplateChooser
+final class ByViewModelName implements NameGuesser
 {
     /**
      * @var NameConverterInterface
@@ -31,7 +32,7 @@ final class NameByClassName implements TemplateChooser
         $this->irrelevantNamespaces = $irrelevantNamespaces;
     }
 
-    public function get(ViewModel $viewModel): string
+    public function extractName(ViewModel $viewModel): string
     {
         $className = $this->getCleanName(get_class($viewModel));
         $name = $this->nameConverter->normalize($className);

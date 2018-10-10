@@ -10,8 +10,14 @@
     </parameters>
     
     <services>
+        <service id="templating.engine.psren.view_model" class="Psren\ViewModelBundle\Templating\ViewModelEngine">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="psren.view_model.name_guesser.by_view_model_name" />
+            <argument type="service" id="templating" />
+            <argument type="service" id="templating" />
+        </service>
         <service id="psren.view_model.name_converter" class="Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter" />
-        <service id="psren.view_model.template_chooser" class="Psren\ViewModelBundle\Templating\NameByClassName" public="true">
+        <service id="psren.view_model.name_guesser.by_view_model_name" class="Psren\ViewModelBundle\Templating\NameGuesser\ByViewModelName">
             <argument type="service" id="psren.view_model.name_converter" />
             <argument type="string">%psren.view_model.view_extension%</argument>
             <argument type="string">%psren.view_model.name.remove_regex%</argument>
